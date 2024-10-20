@@ -1,0 +1,151 @@
+body {
+  font-family: 'Bodoni', serif;
+  margin: 0;
+  padding: 0;
+  background-color: #DCDCDC; 
+  color: white;
+  font-size: 16px; 
+  background-image: url(../logos/hero/luxee.jpeg);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  background-attachment: fixed;
+  filter: blur(50px); 
+  z-index: -1;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  z-index: 1000;
+  padding: 10px;
+}
+
+.menu-container {
+  position: fixed;
+  display: inline-block;
+}
+
+.menu-checkbox {
+  display: none;
+}
+
+.menu-icon {
+  cursor: pointer;
+  padding: 10px;
+  display: block;
+}
+
+.menu-icon .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 5px 0;
+}
+
+.menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgba(51, 51, 51, 0.9); 
+  min-width: 160px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu-checkbox:checked ~ .menu {
+  display: block;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu ul li {
+  padding: 10px;
+}
+
+.menu ul li a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+
+.menu ul li a:hover {
+  background-color: rgba(85, 85, 85, 0.8); 
+}
+
+.about-section {
+  padding: 80px 20px 20px; 
+  text-align: center;
+  
+}
+
+.about-section h2 {
+  font-size: 2.5rem;
+  font-family: 'Dancing Script', cursive;
+  margin-bottom: 40px;
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+  line-height: 1.6;
+}
+
+.about-content h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: white;
+  font-family: 'Satisfy', cursive;
+}
+
+.about-content p {
+  font-size: 1.2rem;
+  color: white;
+  margin-bottom: 30px;
+}
+
+footer {
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .about-section, .faq-section {
+      padding: 60px 10px;
+  }
+
+  .about-content, .faq-content {
+      padding: 0 10px;
+  }
+
+  .menu ul li {
+      padding: 8px;
+  }
+}

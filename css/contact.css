@@ -1,0 +1,208 @@
+body {
+  font-family: 'Bodoni', serif;
+  margin: 0;
+  padding: 0;
+  background-color: #DCDCDC;
+  color: white;
+  font-size: 16px;
+  background-image: url(../logos/hero/luxee.jpeg);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  background-attachment: fixed;
+  filter: blur(50px);
+  z-index: -1;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  z-index: 1000;
+  padding: 10px;
+}
+
+.menu-container {
+  display: inline-block;
+}
+
+.menu-checkbox {
+  display: none;
+}
+
+.menu-icon {
+  cursor: pointer;
+  padding: 10px;
+  display: block;
+}
+
+.menu-icon .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 5px 0;
+}
+
+.menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgba(51, 51, 51, 0.9);
+  min-width: 160px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu-checkbox:checked ~ .menu {
+  display: block;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu ul li {
+  padding: 10px;
+}
+
+.menu ul li a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+
+.menu ul li a:hover {
+  background-color: rgba(85, 85, 85, 0.8);
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-section {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  min-height: 100vh;
+}
+
+.contact-section h1 {
+  font-size: 3rem;
+  font-family: 'Dancing Script', cursive;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.contact-section p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  color: white;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.contact-item {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.contact-item h2 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.contact-item ul,
+.contact-item p {
+  font-size: 1.2rem;
+  color: white;
+}
+
+.contact-item ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.contact-item ul li {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: baseline;
+}
+
+.contact-item ul li a {
+  color: #1DB954;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.contact-item ul li a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+footer p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 60px 10px;
+  }
+
+  .contact-grid {
+    padding: 0 10px;
+  }
+
+  .menu ul li {
+    padding: 8px;
+  }
+}
