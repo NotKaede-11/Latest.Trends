@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/jpeg" href="favicon/logologo.png">
+    <link rel="shortcut icon" type="image/jpeg" href="favicon/logologo.png">
+    <link rel="apple-touch-icon" href="favicon/logologo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&display=swap" rel="stylesheet">
+    <title>Luxe Horizon Data Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #121212;
+            color: #e5e5e5;
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            max-width: 845px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .title-container {
+            position: relative;
+            text-align: center;
+            color: #ffd700;
+            padding: 50px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            font-family: 'Bodoni Moda', serif;
+        }
+
+        .title-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('logos/hero/luxee.jpeg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(16px);
+            filter: blur(16px);
+            z-index: -1;
+            transform: scale(1.1);
+        }
+
+        .homepage-link {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            color: #ffd700;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-family: 'Bodoni Moda', serif;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, text-decoration 0.3s ease;
+            z-index: 1;
+        }
+
+        .homepage-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .title-text {
+            position: relative;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            z-index: 1;
+        }
+
+        .kpi-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .kpi-card {
+            flex: 1;
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            color: #ffd700;
+        }
+
+        .charts-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .chart-container {
+            flex: 1 1 48%;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            color: #e5e5e5;
+            text-align: center;
+        }
+
+        .filter-section {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            color: #e5e5e5;
+        }
+
+        label, select {
+            font-size: 1rem;
+            margin: 5px 0;
+            color: #ffd700;
+        }
+
+        select {
+            color: black;
+            background-color: #ffd700;
+        }
+
+        select option {
+            color: black;
+        }
+
+        .chart-container canvas {
+            border-radius: 8px;
+        }
+
+        .menu-container {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            display: inline-block;
+            z-index: 1000;
+        }
+
+        .menu-checkbox {
+            display: none;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            padding: 10px;
+            display: block;
+        }
+
+        .menu-icon .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        .menu {
+            display: none;
+            position: absolute;
+            font-family: 'Bodoni Moda', serif;
+            top: 100%;
+            left: 0;
+            background-color: rgba(51, 51, 51, 0.9);
+            min-width: 160px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .menu-checkbox:checked ~ .menu {
+            display: block;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu ul li {
+            padding: 5px;
+        }
+
+        .menu ul li a {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            padding: 3px 8px;
+        }
+
+        .menu ul li a:hover {
+            background-color: rgba(85, 85, 85, 0.8);
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .kpi-section {
+                flex-direction: column;
+            }
+
+            .kpi-card {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+
+            .charts-section {
+                flex-direction: column;
+            }
+
+            .chart-container {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .title-text {
+                font-size: 2rem;
+            }
+
+            .dashboard-container {
+                padding: 10px;
+            }
+
+            select {
+                width: 80%;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title-text {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+        <label for="menu-toggle" class="menu-icon">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </label>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="dashboard.html">Dashboard - Carvajal</a></li>
+                <li><a href="https://notkaede-11.github.io/Data.Dashboard/">Dashboard - Cartoneros</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <div class="dashboard-container">
+        <div class="title-container">
+            <h1 class="title-text">Luxe Horizon Data Dashboard</h1>
+            <a href="https://notkaede-11.github.io/Latest.Trends/" class="homepage-link">Visit Luxe Horizon</a>
+        </div>
+
+        <section class="kpi-section">
+            <div class="kpi-card" id="totalPageViews">
+                <h3>Total Page Views</h3>
+                <p>23,450</p>
+            </div>
+            <div class="kpi-card" id="averageCTR">
+                <h3>Average Click-Through Rate</h3>
+                <p>4.8%</p>
+            </div>
+            <div class="kpi-card" id="conversionRate">
+                <h3>Conversion Rate</h3>
+                <p>2.1%</p>
+            </div>
+            <div class="kpi-card" id="topCategory">
+                <h3>Top Category</h3>
+                <p>Cars</p>
+            </div>
+        </section>
+
+        <section class="filter-section">
+            <label for="date-range">Select Date Range:</label>
+            <select id="date-range" onchange="updateCharts()">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+            </select>
+        </section>
+
+        <section class="charts-section">
+            <div class="chart-container">
+                <h3>Page Views by Category</h3>
+                <canvas id="pageViewsChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Conversion Rate by Category</h3>
+                <canvas id="conversionRateChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Popular Times</h3>
+                <canvas id="popularTimesChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>User Click Behavior</h3>
+                <canvas id="userClickChart"></canvas>
+            </div>
+        </section>
+    </div>
+    
+
+    <script>
+    const mockData = {
+        daily: {
+            pageViews: [500, 300, 200, 600],
+            conversionRates: [3, 4, 2, 5],
+            popularTimes: [120, 180, 250, 100],
+            interactions: [700, 200, 100],
+            kpis: { totalPageViews: "5,600", ctr: "4.2%", conversion: "1.5%", topCategory: "Jewelry" }
+        },
+        weekly: {
+            pageViews: [3500, 2500, 2200, 4500],
+            conversionRates: [3.5, 4.1, 2.8, 5.0],
+            popularTimes: [820, 960, 1130, 990],
+            interactions: [4200, 1300, 600],
+            kpis: { totalPageViews: "23,450", ctr: "4.8%", conversion: "2.1%", topCategory: "Cars" }
+        },
+        monthly: {
+            pageViews: [15000, 12000, 10000, 17000],
+            conversionRates: [4.2, 4.8, 3.6, 5.5],
+            popularTimes: [5000, 6500, 7300, 5400],
+            interactions: [17000, 4000, 2500],
+            kpis: { totalPageViews: "72,450", ctr: "5.0%", conversion: "3.2%", topCategory: "Fashion" }
+        }
+    };
+
+    function updateCharts() {
+        const range = document.getElementById('date-range').value;
+        const data = mockData[range];
+
+        document.getElementById('totalPageViews').querySelector('p').innerText = data.kpis.totalPageViews;
+        document.getElementById('averageCTR').querySelector('p').innerText = data.kpis.ctr;
+        document.getElementById('conversionRate').querySelector('p').innerText = data.kpis.conversion;
+        document.getElementById('topCategory').querySelector('p').innerText = data.kpis.topCategory;
+
+        pageViewsChart.data.datasets[0].data = data.pageViews;
+        conversionRateChart.data.datasets[0].data = data.conversionRates;
+        popularTimesChart.data.datasets[0].data = data.popularTimes;
+        userClickChart.data.datasets[0].data = data.interactions;
+
+        pageViewsChart.update();
+        conversionRateChart.update();
+        popularTimesChart.update();
+        userClickChart.update();
+
+        const topCategoryIndex = data.pageViews.indexOf(Math.max(...data.pageViews));
+        const topCategory = categories[topCategoryIndex];
+        document.getElementById('topCategory').querySelector('p').innerText = topCategory;
+    }
+
+    const categories = ['Cars', 'Handbags', 'Jewelry', 'Fashion'];
+    const pageViewsChart = new Chart(document.getElementById('pageViewsChart'), {
+        type: 'bar',
+        data: { labels: categories, datasets: [{ label: 'Page Views', data: [], backgroundColor: '#ffd700' }] },
+        options: { responsive: true, scales: { y: { beginAtZero: true } } }
+    });
+    const conversionRateChart = new Chart(document.getElementById('conversionRateChart'), {
+        type: 'line',
+        data: { labels: categories, datasets: [{ label: 'Conversion Rate', data: [], borderColor: '#ffd700', fill: false }] },
+        options: { responsive: true, scales: { y: { beginAtZero: true } } }
+    });
+    const popularTimesChart = new Chart(document.getElementById('popularTimesChart'), {
+        type: 'pie',
+        data: { labels: categories, datasets: [{ label: 'Popular Times', data: [], backgroundColor: ['#ffd700', '#e5e5e5', '#ff6347', '#8b0000'] }] },
+        options: { responsive: true }
+    });
+    const userClickChart = new Chart(document.getElementById('userClickChart'), {
+        type: 'doughnut',
+        data: { labels: ['Clicks', 'Downloads', 'Form Submissions'], datasets: [{ label: 'User Interactions', data: [], backgroundColor: ['#ffd700', '#e5e5e5', '#ff6347'] }] },
+        options: { responsive: true }
+    });
+
+    updateCharts();
+
+    document.getElementById('home').addEventListener('click', function(e) {
+    e.preventDefault();
+    goToHome();
+});
+
+    </script>
+    </body>
+    </html>
